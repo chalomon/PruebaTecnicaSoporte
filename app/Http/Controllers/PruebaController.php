@@ -14,16 +14,16 @@ class PruebaController extends Controller
     {
         $aplicante = [
             'puntos' => 0,
-            'nivel' => 0
-            'nombre' => 'Jhon Doe',
+            'nivel' => 1, //Se modifica el nivel para comenzar en 1, y se agrega la coma faltante.
+            'nombre' => 'Gonzalo Pacheco Zamorano', //Se cambia el nombre por el mío
             'aprobado' => false
         ];
-        while ($aplicante['nivel'] > 10) {
+        while ($aplicante['nivel'] < 10) { //Se cambia la condición para que la función entrenar se ejecute cuando el nivel sea menor que 10
             $aplicante = $this->entrenar($aplicante);
         }
         $aplicante['aprobado'] = $this->evaluar($aplicante);
 
-        return view('prueba');
+        return view('prueba', ['aplicante' => $aplicante]); //Se envía el array completo del aplicante a la vista, para que esta pueda reconocerlo y manejar los atributos
     }
 
     /**
@@ -31,13 +31,14 @@ class PruebaController extends Controller
      * @param array $aplicante
      * @reutrn array
      */
-    private function entrenar(int $aplicante)
+    private function entrenar($aplicante)
     {
         $aplicante['puntos'] += 10 / $aplicante['nivel'];
-        if ($aplicante['puntos'] >= 100) {
-            $aplicante['nivel']++;
-            $aplicante['puntos'] = 0;
-        }
+        if ($aplicante['puntos'] >= 100) 
+            {
+                $aplicante['nivel']++;
+                $aplicante['puntos'] = 0;
+            }
         return $aplicante;
     }
 
@@ -48,6 +49,9 @@ class PruebaController extends Controller
      */
     private function evaluar(array $aplicante)
     {
-        return $aplicante->nivel >= 20;
+        //Línea previa: return $aplicante->nivel >= 20;
+        return $aplicante['nivel'] >= 10;
+        //Se cambia la operación lógica para que su sintaxis sea correcta, y se baja la exigencia del nivel a 10, según lo solicitado.
+
     }
 }

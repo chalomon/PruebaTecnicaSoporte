@@ -13,5 +13,5 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-Route::post('/', [ PruebaController::class, 'index']);
+//Se modifica el método permitido, ya que previamente era "POST", pero debía ejecutarse el método "GET"
+Route::get('/', [ PruebaController::class, 'index']);
